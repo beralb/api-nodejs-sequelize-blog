@@ -15,13 +15,8 @@ module.exports = {
       content: {
         type: Sequelize.STRING,
       },
-      published: {
-        type: Sequelize.DATE,
-      },
-      updated: {
-        type: Sequelize.DATE,
-      },
-      userId: {
+      // userId: {
+        user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         // Configuram o que deve acontecer ao atualizar ou excluir um usuário
@@ -35,6 +30,12 @@ module.exports = {
           // Informa a coluna da referência que é a chave correspondente
           key: 'id',
         },
+      },
+      published: {
+        type: Sequelize.DATE,
+      },
+      updated: {
+        type: Sequelize.DATE,
       },
     });
   },
