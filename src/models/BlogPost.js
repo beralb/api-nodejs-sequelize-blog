@@ -11,8 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     published: DataTypes.DATE,
     updated: DataTypes.DATE,
     userId: {
-      foreignKey: 'userId',
-      as: 'users',
+      type: DataTypes.INTEGER,
     }
   }, {
     tablename: 'blog_posts',
