@@ -15,19 +15,14 @@ module.exports = {
       content: {
         type: Sequelize.STRING,
       },
-      // userId: {
         user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        // Configuram o que deve acontecer ao atualizar ou excluir um usuário
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         field: 'user_id',
-        // Informa que o campo é uma Foreign Key (Chave estrangeira)
         references: {
-          // Informa a tabela da referência da associação
           model: 'users',
-          // Informa a coluna da referência que é a chave correspondente
           key: 'id',
         },
       },

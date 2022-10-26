@@ -30,36 +30,6 @@ module.exports = {
     });
   },
 
-// module.exports = {
-//   async up (queryInterface, Sequelize) {
-//     await queryInterface.createTable('post_categories', {
-//       postId: {
-//         allowNull: false,
-//         primaryKey: true,
-//         type: Sequelize.INTEGER,
-//         field: 'post_id',
-//         references: {
-//           model: 'blog_posts',
-//           key: 'id',
-//         },
-//         onUpdate: 'CASCADE',
-//         onDelete: 'CASCADE',
-//       },
-//       categoryId: {
-//         allowNull: false,
-//         primaryKey: true,
-//         type: Sequelize.INTEGER,
-//         field: 'category_id',
-//         references: {
-//           model: 'categories',
-//           key: 'id',
-//         },
-//         onUpdate: 'CASCADE',
-//         onDelete: 'CASCADE',
-//       }
-//     });
-//   },
-
   async down (queryInterface, Sequelize) {
     await queryInterface.dropTable('post_categories');
   }
