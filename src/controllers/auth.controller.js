@@ -4,7 +4,7 @@ const { User } = require('../models');
 
 const { createToken } = require('../utils/jwt.util');
 
-const login = async (req, res) => {
+const loginAuth = async (req, res) => {
     // const { email, password } = authService.validateBody(req.body);
     const { email, password } = req.body;
 
@@ -18,7 +18,6 @@ const login = async (req, res) => {
     }
 
     // const token = await authService.validateLogin({ email, password });
-
     // const token = process.env.JWT_SECRET;
 
     const token = createToken(email);
@@ -26,4 +25,12 @@ const login = async (req, res) => {
     res.status(200).json({ token });
 };
 
-module.exports = { login };
+// const userAuth = async (req, res) => {
+//     const { email, password } = authService.validateBody(req.body);
+
+//     const token = await authService.validateLogin({ email, password });
+
+//     res.status(200).json({ token });
+// };
+
+module.exports = { loginAuth };

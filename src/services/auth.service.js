@@ -1,23 +1,24 @@
-// const Joi = require('joi');
-const jwtUtil = require('../utils/jwt.util');
+const Joi = require('joi');
+// const jwtUtil = require('../utils/jwt.util');
 
-// const { User } = require('../models');
+const validateBody = (req, res, next) => { // criar arquivo de middleware para essa função
+  const params = req.body;
+  const schema = Joi.object({
+    displayName: Joi.string().min(8).required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required(),
+    image: Joi.string(),
+  });
 
-// const validateBody = (res, params) => {
-//   try {
-//     const { email, password } = params;
+  const { error } = schema.validate(params);
 
-//     if (email === '' || password === '') {
-//       return res.status(400).json({ message: 'Some required fields are missing' });
-//     }
+  if (error) {
+    const errorMessage = error.details[0].message;
+    return res.status(400).json({ message: errorMessage });
+  }
 
-//     return params;
-//   } catch (e) {
-//     res.status(500).json({ message: 'Algo deu errado' });
-//   }
-
-//   return params;
-// };
+  next();
+};
 
 // const validateLogin = async ({ email, password }) => {
 //   // SELECT * FROM USERS WHERE EMAIL = XXXXX
@@ -38,19 +39,20 @@ const jwtUtil = require('../utils/jwt.util');
 //   return token;
 // };
 
-const validateToken = (token) => {
-  if (!token) {
-    const e = new Error('Token obrigatório!');
-    e.name = 'Token obrigatório';
-    throw e;
-  }
+// const validateToken = (token) => {
+//   if (!token) {
+//     const e = new Error('Token obrigatório!');
+//     e.name = 'Token obrigatório';
+//     throw e;
+//   }
 
-  const user = jwtUtil.validateToken(token);
+//   const user = jwtUtil.validateToken(token);
 
-  return user;
-};
+//   return user;
+// };
 
-module.exports = { validateToken };
+module.exports = { validateBody };
+// module.exports = { validateToken, validateBody };
 // module.exports = { validateLogin, validateToken };
 // module.exports = { validateBody, validateLogin, validateToken };
 // module.exports = { validateBody, validateLogin };

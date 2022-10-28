@@ -1,18 +1,19 @@
 const express = require('express');
 
-const authRouter = require('./auth.router');
+const loginRouter = require('./login.router');
+
+const userRouter = require('./user.router');
 
 const authMiddleware = require('../middlewares/auth.middleware');
 
 const routers = express.Router();
-// rota pública
-routers.use('/login', authRouter);
+
+// rotas públicas
+routers.use('/login', loginRouter);
+routers.use('/user', userRouter);
 
 routers.use(authMiddleware.validateToken);
 
-// rotas privadas - precisar ter feito autenticação (token)
-// routers.use('/courses', courseRouter);
-// routers.use('/students', studentRouter);
-// routers.use('/modules', moduleRouter);
+// a partir daqui rotas privadas - precisar ter feito autenticação (token)
 
 module.exports = routers;

@@ -1,11 +1,22 @@
-const authService = require('../services/auth.service');
+const jwt = require('jsonwebtoken');
 
-const validateToken = async (req, _res, next) => {
-    const { authorization } = req.headers;
-    const user = authService.validateToken(authorization);
-    req.user = user;
+const { JWT_SECRET } = process.env;
 
-    next();
+const validateToken = async (req, res, next) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+
+  try {
+    const payload = jwt.verify(token, JWT_SECRET);
+    req.user = payload;
+
+    return next();
+  } catch (err) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
+  }
 };
 
 module.exports = { validateToken };
