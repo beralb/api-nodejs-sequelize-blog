@@ -12,7 +12,13 @@ const usersGetAll = async () => {
   return users;
 };
 
+const userGetById = async (id) => User.findAll({
+  where: { id }, 
+  attributes: { exclude: ['password'] },
+});
+
 module.exports = {
   createUser,
   usersGetAll,
+  userGetById,
 };
