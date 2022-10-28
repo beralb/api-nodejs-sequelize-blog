@@ -23,21 +23,6 @@ const validateUserBody = (req, res, next) => {
   next();
 };
 
-const validateToken = async (req, res, next) => {
-  const { authorization } = req.headers;
-  if (!authorization) {
-    return res.status(401).json({ message: 'Token not found' });
-  }
-  try {
-    const payload = jwt.verify(authorization, JWT_SECRET);
-    req.user = payload;
-
-    return next();
-  } catch (err) {
-    return res.status(401).json({ message: 'Expired or invalid token' });
-  }
-};
-
 const validateCategoryBody = (req, res, next) => {
   const params = req.body;
   const schema = Joi.object({
@@ -54,4 +39,37 @@ const validateCategoryBody = (req, res, next) => {
   next();
 };
 
-module.exports = { validateToken, validateUserBody, validateCategoryBody };
+const validatePostBody = (req, res, next) => {
+  const params = req.body;
+  const schema = Joi.object({
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+    categoryIds: Joi.array().items(Joi.number()).required(),    
+  });
+
+  const { error } = schema.validate(params);
+
+  if (error) {
+    const errorMessage = error.details[0].message;
+    return res.status(400).json({ message: errorMessage });
+  }
+
+  next();
+};
+
+const validateToken = async (req, res, next) => {
+  const { authorization } = req.headers;
+  if (!authorization) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+  try {
+    const payload = jwt.verify(authorization, JWT_SECRET);
+    req.user = payload;
+
+    return next();
+  } catch (err) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
+  }
+};
+
+module.exports = { validateToken, validateUserBody, validateCategoryBody, validatePostBody };

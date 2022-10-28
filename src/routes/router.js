@@ -8,6 +8,8 @@ const userRouter = require('./user.router');
 
 const categoryRouter = require('./category.router');
 
+const postRouter = require('./post.router');
+
 const routers = express.Router();
 
 // rotas públicas
@@ -19,5 +21,6 @@ routers.use(authMiddleware.validateToken);
 // a partir daqui rotas privadas - precisar ter feito autenticação (token)
 
 routers.use('/categories', categoryRouter);
+routers.use('/post', postRouter);
 
 module.exports = routers;
