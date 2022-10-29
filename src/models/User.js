@@ -13,7 +13,6 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     image: DataTypes.STRING,
   }, {
-    tablename: 'users',
     underscored: true,
     timestamps: false,
   });

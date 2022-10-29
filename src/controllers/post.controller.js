@@ -29,6 +29,14 @@ const createPost = async (req, res) => {
     return res.status(201).json(newCategoryData);
 };
 
+const getAllPosts = async (req, res) => {
+  const courses = await postService.getAllPosts();
+  console.log(req.user);
+
+  return res.status(200).json(courses);
+};
+
 module.exports = {
     createPost,
+    getAllPosts,
 };
