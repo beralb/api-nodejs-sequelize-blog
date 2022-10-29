@@ -13,14 +13,15 @@ const postRouter = require('./post.router');
 const routers = express.Router();
 
 // rotas públicas
+
 routers.use('/login', loginRouter);
 routers.use('/user', userRouter);
 
-routers.use(authMiddleware.validateToken);
+// routers.use(authMiddleware.validateToken);
 
 // a partir daqui rotas privadas - precisar ter feito autenticação (token)
 
-routers.use('/categories', categoryRouter);
-routers.use('/post', postRouter);
+routers.use('/categories', authMiddleware.validateToken, categoryRouter);
+routers.use('/post', authMiddleware.validateToken, postRouter);
 
 module.exports = routers;

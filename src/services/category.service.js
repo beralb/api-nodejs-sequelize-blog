@@ -9,7 +9,13 @@ const categGetAll = async () => {
   return category;
 };
 
+const getCategoryIds = async () => {
+  const cat = await Category.findAll({ attributes: ['id'] });
+  return cat;
+};
+
 module.exports = {
   createCategory,
   categGetAll,
+  getCategoryIds,
 };
