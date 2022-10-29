@@ -48,9 +48,12 @@ const validatePostBody = (req, res, next) => {
   });
 
   const { error } = schema.validate(params);
-
+  
   if (error) {
     const errorMessage = error.details[0].message;
+    if (errorMessage.includes('is not allowed to be empty')) {
+      return res.status(400).json({ message: 'Some required fields are missing' });
+    }
     return res.status(400).json({ message: errorMessage });
   }
 
