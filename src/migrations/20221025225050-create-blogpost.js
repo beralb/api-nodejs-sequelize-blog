@@ -26,10 +26,20 @@ module.exports = {
           key: 'id',
         },
       },
-      published: {
+      // published: {
+      //   field: 'created_at',
+      //   type: Sequelize.DATE,
+      // },
+      // updated: {
+      //   field: 'updated_at',
+      //   type: Sequelize.DATE,
+      // },
+      created_at: {
+        field: 'published',
         type: Sequelize.DATE,
       },
-      updated: {
+      updated_at: {
+        field: 'updated',
         type: Sequelize.DATE,
       },
     });

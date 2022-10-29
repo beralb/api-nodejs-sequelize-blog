@@ -44,7 +44,7 @@ const validatePostBody = (req, res, next) => {
   const schema = Joi.object({
     title: Joi.string().required(),
     content: Joi.string().required(),
-    categoryIds: Joi.array().items(Joi.number()).required(),    
+    categoryIds: Joi.array().items(Joi.number()).required(),
   });
 
   const { error } = schema.validate(params);
