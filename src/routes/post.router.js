@@ -6,6 +6,7 @@ const { validatePostBody, validateUpdatePostBody } = require('../middlewares/val
 
 const router = express.Router();
 
+router.get('/search', postController.searchPost);
 router.post('/', validatePostBody, postController.createPost);
 router.get('/', postController.getAllPosts);
 router.get('/:id', postController.getPostById);

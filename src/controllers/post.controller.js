@@ -92,12 +92,24 @@ const deletePost = async (req, res) => {
   return res.status(401).json({ message: 'Unauthorized user' });
 };
 
+const searchPost = async (req, res) => {
+  const { q: query } = req.query;
+  const searchResult = await postService.searchPost(query);
+
+  if (!searchResult) {
+      return res.status(404).json({ message: 'Post does not exist' });
+  }
+
+  res.status(200).json(searchResult);
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   updatePost,
   deletePost,
+  searchPost,
 };
 
   // const loggedUserEmail = req.session.username;
