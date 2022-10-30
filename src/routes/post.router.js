@@ -2,13 +2,13 @@ const express = require('express');
 
 const postController = require('../controllers/post.controller');
 
-const { validatePostBody } = require('../middlewares/auth.middleware');
+const { validatePostBody, validateUpdatePostBody } = require('../middlewares/auth.middleware');
 
 const router = express.Router();
 
 router.post('/', validatePostBody, postController.createPost);
 router.get('/', postController.getAllPosts);
-router.get('/:id', postController.getPostsById);
-router.put('/:id', postController.updatePost);
+router.get('/:id', postController.getPostById);
+router.put('/:id', validateUpdatePostBody, postController.updatePost);
 
 module.exports = router;

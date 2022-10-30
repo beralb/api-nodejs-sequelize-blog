@@ -17,8 +17,6 @@ const routers = express.Router();
 routers.use('/login', loginRouter);
 routers.use('/user', userRouter);
 
-// routers.use(authMiddleware.validateToken);
-
 // a partir daqui rotas privadas - precisar ter feito autenticação (token)
 
 routers.use('/categories', authMiddleware.validateToken, categoryRouter);

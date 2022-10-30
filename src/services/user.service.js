@@ -1,4 +1,3 @@
-// const { User, BlogPost } = require('../models');
 const { User } = require('../models');
 
 const createUser = async ({ displayName, email, password, image }) =>
@@ -16,11 +15,6 @@ const userGetById = async (id) => User.findAll({
   where: { id }, 
   attributes: { exclude: ['password'] },
 });
-
-// const getUserIdByEmail = async (email) => User.findAll({
-//   where: { email }, 
-//   attributes: { include: ['id'] },
-// });
 
 const getUserIdByEmail = (email) => User.findOne({ where: { email } });
 

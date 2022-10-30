@@ -60,6 +60,26 @@ const validatePostBody = (req, res, next) => {
   next();
 };
 
+const validateUpdatePostBody = (req, res, next) => {
+  const params = req.body;
+  const schema = Joi.object({
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+  });
+
+  const { error } = schema.validate(params);
+  
+  if (error) {
+    const errorMessage = error.details[0].message;
+    if (errorMessage.includes('is required') || errorMessage.includes('is not allowed')) {
+      return res.status(400).json({ message: 'Some required fields are missing' });
+    }
+    return res.status(400).json({ message: errorMessage });
+  }
+
+  next();
+};
+
 const validateToken = async (req, res, next) => {
   const { authorization } = req.headers;
   if (!authorization) {
@@ -75,4 +95,10 @@ const validateToken = async (req, res, next) => {
   }
 };
 
-module.exports = { validateToken, validateUserBody, validateCategoryBody, validatePostBody };
+module.exports = { 
+  validateToken, 
+  validateUserBody, 
+  validateCategoryBody, 
+  validatePostBody,
+  validateUpdatePostBody,
+};

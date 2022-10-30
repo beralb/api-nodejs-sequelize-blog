@@ -36,31 +36,46 @@ const getAllPosts = async (req, res) => {
   return res.status(200).json(posts);
 };
 
-const getPostsById = async (req, res) => {
+const getPostById = async (req, res) => {
   const { id } = req.params;
 
-  const posts = await postService.getPostsById(id);
-  if (!posts) {
+  const post = await postService.getPostById(id);
+  if (!post) {
     res.status(404).json({ message: 'Post does not exist' });
   }
 
-  res.status(200).json(posts);
+  res.status(200).json(post);
 };
 
 const updatePost = async (req, res) => {
-  const { id } = req.params; /// PAREI AQUI NA NOITE DO DIA 29/10/22
+  const { id } = req.params;
+  const { data: email } = req.user;
+  const { dataValues } = await userService.getUserIdByEmail(email);
+  const userId = dataValues.id;
+
+  const postObject = await postService.getPostById(id);
+  const postUserId = postObject.dataValues.userId;
+  
+  if (userId !== postUserId) {
+    return res.status(401).json({ message: 'Unauthorized user' });
+  }
+  
   const isUpdated = await postService.updatePost(id, req.body);
 
   if (isUpdated) {
-    return res.status(200).json({ message: `Curso ${id} atualizado com sucesso` });
+    const updatedPost = await postService.getPostById(id);
+    return res.status(200).json(updatedPost);
   }
 
-  return res.status(404).json({ message: `Curso ${id} não encontrado` });
+  return res.status(404).json({ message: `Post ${id} não encontrado` });
 };
 
 module.exports = {
   createPost,
   getAllPosts,
-  getPostsById,
+  getPostById,
   updatePost,
 };
+
+  // const loggedUserEmail = req.session.username;
+  // console.log(req.session.username);

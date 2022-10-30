@@ -28,7 +28,7 @@ const getAllPosts = async () => BlogPost.findAll({
   ],
 });
 
-const getPostsById = (id) => BlogPost.findByPk(id, {
+const getPostById = (id) => BlogPost.findByPk(id, {
   attributes: { exclude: ['user_id'] },
   include: [
     { model: User, as: 'user', attributes: { exclude: ['password'] } },
@@ -36,8 +36,14 @@ const getPostsById = (id) => BlogPost.findByPk(id, {
   ],
 });
 
+const updatePost = async (id, { title, content }) => BlogPost.update(
+  { title, content },
+  { where: { id } },
+);
+
 module.exports = {
   createPost,
   getAllPosts,
-  getPostsById,
+  getPostById,
+  updatePost,
 };
