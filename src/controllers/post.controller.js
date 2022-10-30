@@ -47,8 +47,20 @@ const getPostsById = async (req, res) => {
   res.status(200).json(posts);
 };
 
+const updatePost = async (req, res) => {
+  const { id } = req.params; /// PAREI AQUI NA NOITE DO DIA 29/10/22
+  const isUpdated = await postService.updatePost(id, req.body);
+
+  if (isUpdated) {
+    return res.status(200).json({ message: `Curso ${id} atualizado com sucesso` });
+  }
+
+  return res.status(404).json({ message: `Curso ${id} não encontrado` });
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostsById,
+  updatePost,
 };
