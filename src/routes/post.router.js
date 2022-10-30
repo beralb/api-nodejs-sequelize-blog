@@ -2,7 +2,7 @@ const express = require('express');
 
 const postController = require('../controllers/post.controller');
 
-const { validatePostBody, validateUpdatePostBody } = require('../middlewares/auth.middleware');
+const { validatePostBody, validateUpdatePostBody } = require('../middlewares/validate.middleware');
 
 const router = express.Router();
 
