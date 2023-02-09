@@ -1,6 +1,5 @@
 <h1 align="center">Node.js / Sequelize - Blogs API</h1>
-<h3 align="center">This was a project developed in the back-end module of Web Development Course of <a href=https://www.betrybe.com>Trybe</a></h3>
-<br>
+
 
 🔭 In this project I developed an API and a database for the production of blog content! It was an application in Node.js using the Sequelize package to CRUD posts in which :
 
